@@ -1,0 +1,70 @@
+class Result {
+
+    /*
+     * Complete the 'MinimumNumberOfGates' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY arrivalTimes
+     *  2. INTEGER_ARRAY departureTimes
+     *  3. INTEGER flights
+     */
+
+    public static int MinimumNumberOfGates(List<Integer> arrivalTimes, List<Integer> departureTimes, int flights) 
+    {
+        int number_curr = 1;
+        int min_num_nec = 1;
+        if(departureTimes.size()==0 || arrivalTimes.size()==0)
+        {
+          min_num_nec = 0;  
+        }
+        else{
+            
+        for(int i = 1; i < flights; i++)
+        {
+            if(departureTimes.get(i-1)<arrivalTimes.get(i))
+            {
+                //nothing wrong, next plane arriving is after the previous departure time
+                if (number_curr > 1)
+                {
+                  number_curr--;   
+                }
+            }
+            else
+            {
+                if (i==flights-1)
+                {
+                  if(departureTimes.get(i)>=arrivalTimes.get(i))
+                  {
+                    number_curr++;
+                     if(min_num_nec < number_curr)
+                    {
+                       min_num_nec = number_curr;
+                    }  
+                  }
+                  else
+                  {
+                      if (number_curr > 1)
+                        {
+                          number_curr--;   
+                        }
+                  }  
+                }
+                else
+                {
+                    
+                    number_curr++;
+                     if(min_num_nec < number_curr)
+                    {
+                       min_num_nec = number_curr;
+                    }
+                }
+            }
+        }
+        }
+        System.out.println(min_num_nec);
+        return min_num_nec;
+    
+    }
+
+}
